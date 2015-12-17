@@ -10,7 +10,6 @@ var gulp = require("gulp"),
 
 // CSS plugins
     sass = require("gulp-sass"),
-    combineMediaQueries = require("gulp-combine-media-queries"),
     autoprefixer = require("gulp-autoprefixer"),
     cssmin = require("gulp-minify-css"),
     uncss = require("gulp-uncss"),
@@ -88,8 +87,6 @@ gulp.task("css", function () {
         .pipe(plumber(onError))
         // Compile Sass
         .pipe(sass({style: "compressed", noCache: true}))
-        // Combine media queries
-        .pipe(combineMediaQueries())
         // parse CSS and add vendor-prefixed CSS properties
         .pipe(autoprefixer({
             browsers: ["> 5%", "last 2 versions", "Firefox ESR"],
