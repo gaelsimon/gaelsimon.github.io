@@ -1,6 +1,6 @@
 {
   "name": "gh-pages-gulp",
-  "version": "0.1",
+  "version": "0.1.0",
   "author": "Gaël SIMON",
   "description": "This is a Gulp boilerplate for gh-pages personnal website",
   "private": true,
