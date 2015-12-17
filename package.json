@@ -1,0 +1,28 @@
+{
+  "name": "gh-pages-gulp",
+  "version": "0.1",
+  "author": "Gaël SIMON",
+  "description": "This is a Gulp boilerplate for gh-pages personnal website",
+  "private": true,
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-file-include": "*",
+    "gulp-htmlmin": "*",
+    "gulp-sass": "*",
+    "gulp-combine-media-queries": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-minify-css": "*",
+    "gulp-uncss": "*",
+    "gulp-rename": "*",
+    "glob": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-imagemin": "*",
+    "gulp-util": "*",
+    "gulp-plumber": "*",
+    "gulp-size": "*",
+    "gulp-watch": "*",
+    "gulp-gh-pages": "*",
+    "browser-sync": "*"
+  }
+}

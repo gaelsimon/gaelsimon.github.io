@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    GaLeLa -- @gaelsimon
+
+# THANKS
+
+    Jordan Bowman -- @jrdnbwmn
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Gulp, Normalize.css, jQuery, SASS
+
+    Source: https://github.com/gaelsimon/gaelsimon.github.io
