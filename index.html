@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
 
-    <title>Pear HTML</title>
+    <title>Store Locator</title>
 
     <!-- The compiled CSS file -->
     <link rel="stylesheet" href="css/production.css">
@@ -34,27 +34,12 @@
 
   <body>
 
-<div class="pt3 pb3 left-align bg--primary-color text--white">
-    <div class="container">
-        <h1>My Brand Name</h1>
-
-        <p class="m0 h2 heading-line-height">A nice place to begin</p>
-    </div>
-</div>
-<div class="container pt2 pb3">
-    <!-- Type -->
-
-
-
-
-    <section class="pb4 reading-font">
-        <h2 class="text--gray pb1 border--bottom">Store Locator</h2>
-        <iframe src="http://stage-webapp.woosmap.com/index.html" width="1000" height="450" frameborder="0" style="border:0"></iframe>
-    </section>
-
-
-
-</div>
+<section id="container">
+	<div id="google-container"></div>
+	<div id="cd-zoom-in"></div>
+	<div id="cd-zoom-out"></div>
+</section>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
     <!-- Reference latest jQuery, with a local fallback -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
