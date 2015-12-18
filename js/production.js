@@ -1116,6 +1116,7 @@ ListPanel.prototype.renderStore = function (store) {
 
 ListPanel.prototype.render = function (stores) {
     this.clear();
+    this._container.appendChild('<h1>The 5 closest Bars</h1>');
     for (var i = 0; i < stores.length; i++) {
         this._container.appendChild(this.renderStore(stores[i]));
     }
