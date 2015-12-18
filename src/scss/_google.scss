@@ -6,7 +6,7 @@
   border-radius: 3px;
 }
 
-.google-control{
+.google-control {
   cursor: pointer;
   background-color: rgba($primary-color, .9);
   .no-touch &:hover {
@@ -40,21 +40,21 @@
 
 #map-control, #satellite-control {
   width: 64px;
-  display:inline-block;
+  display: inline-block;
   margin-top: 10px;
   color: #FFF;
   text-align: center;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 #satellite-control {
-  margin-right:10px;
+  margin-right: 10px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
 
 #map-control {
-  margin-right:1px;
+  margin-right: 1px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -69,7 +69,6 @@
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
-
 
 #pac-input {
   background-color: #fff;
@@ -101,3 +100,26 @@
   font-size: 13px;
   font-weight: 300;
 }
+
+#list-panel {
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  width: 300px;
+  margin-top: 50px;
+  margin-right: 0px;
+  margin-left: 12px;
+  margin-bottom: 30px;
+  max-height: 100%;
+  border: 3px solid transparent;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: none;
+  overflow: auto;
+  background-color: white;
+  position: absolute;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
