@@ -3,45 +3,93 @@ module.exports = {
         return {
             "bars": [
                 {
-                    "name": "Papa Doble",
+                    "name": "DOMAINE D’AURIAC",
                     "type": "blue",
-                    "address": "6 Rue du Petit Scel",
-                    "city": "Montpellier"
+                    "address": "1 Route de Saint Hilaire ",
+                    "city": "Carcassonne "
                 },
                 {
-                    "name": "O'Carolans Irish Pub",
+                    "name": "LA BARBACANE",
                     "type": "red",
-                    "address": "5 Rue du Petit Scel",
-                    "city": "Montpellier"
+                    "address": "Place Auguste-Pierre Pont",
+                    "city": "CARCASSONNE"
                 },
                 {
-                    "name": "Sushi-Bar",
+                    "name": "L'AMBROSIA",
                     "type": "blue",
-                    "address": "20 Rue Bernard Délicieux",
-                    "city": "Montpellier"
+                    "address": "Route Départementale 6113 Carrefour la Madeleine",
+                    "city": "PEZENS"
                 },
                 {
-                    "name": "Trinque Fougasse",
+                    "name": "LA BERGERIE",
                     "type": "red",
-                    "address": "1581 Route de Mende",
-                    "city": "Montpellier"
+                    "address": "Allée de Pech Marie",
+                    "city": "ARAGON"
                 },
                 {
-                    "name": "La Distillerie",
+                    "name": "LE PUITS DU TRESOR",
                     "type": "blue",
-                    "address": "67 Rue de l'Aiguillerie",
-                    "city": "Montpellier"
+                    "address": "21 route des quatre châteaux",
+                    "city": "LASTOURS"
                 },
                 {
-                    "name": "Times Café",
-                    "address": "7 Rue des Teissiers",
-                    "city": "Montpellier",
+                    "name": "CHATEAU DE LA POMAREDE",
+                    "address": "Château de la Pomarède",
+                    "city": "LA POMAREDE",
                     "type": "red"
                 },
                 {
-                    "name": "By Coss Bar",
-                    "address": "5 Rue Belmont",
-                    "city": "Montpellier",
+                    "name": "LA TABLE SAINT CRESCENT",
+                    "address": "68 avenue Général Leclerc",
+                    "city": "NARBONNE",
+                    "type": "blue"
+                },
+                {
+                    "name": "LA MAISON D'UZES",
+                    "address": "18 rue du Docteur Blanchard",
+                    "city": "Uzès",
+                    "type": "blue"
+                },
+                {
+                    "name": "ENTRE VIGNE ET GARRIGUE",
+                    "address": "Route de Saint-Bruno",
+                    "city": "PUJAUT",
+                    "type": "blue"
+                },
+                {
+                    "name": "LE JARDIN DES SENS",
+                    "address": "11 avenue Saint-Lazare",
+                    "city": "MONTPELLIER",
+                    "type": "blue"
+                },
+                {
+                    "name": "RESTAURANT LA COQUERIE",
+                    "address": "1 chemin du Cimetière Marin",
+                    "city": "SETE",
+                    "type": "blue"
+                },
+                {
+                    "name": "OCTOPUS",
+                    "address": "12 rue Boieldieu",
+                    "city": "BEZIERS",
+                    "type": "blue"
+                },
+                {
+                    "name": "LA GALINETTE",
+                    "address": "23 rue Jean Payra",
+                    "city": "PERPIGNAN",
+                    "type": "blue"
+                },
+                {
+                    "name": "LA BALETTE",
+                    "address": "Route de Port-Vendres",
+                    "city": "COLLIOURE",
+                    "type": "blue"
+                },
+                {
+                    "name": "AUBERGE DU CELLIER",
+                    "address": "1 rue de Sainte Eugénie",
+                    "city": "MONTNER",
                     "type": "blue"
                 }
             ]

@@ -7,7 +7,7 @@ var ListPanel = require('./listpanel');
 window.initMap = function () {
     var latitude = 43.610430,
         longitude = 3.875395,
-        map_zoom = 13;
+        map_zoom = 8;
     var pointsOfInterest = [];
     var userPosition = {};
     var is_internetExplorer11 = navigator.userAgent.toLowerCase().indexOf('trident') > -1;
@@ -174,7 +174,7 @@ window.initMap = function () {
             destination: destination,
             travelMode: google.maps.TravelMode.DRIVING
         };
-        var dDisplay = new google.maps.DirectionsRenderer({draggable: true});
+        var dDisplay = new google.maps.DirectionsRenderer({draggable: true, preserveViewport:true});
         dDisplay.setPanel(document.getElementById("list-panel"));
         var directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (result, status) {

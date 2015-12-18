@@ -29,7 +29,7 @@ ListPanel.prototype.renderStore = function (store) {
 ListPanel.prototype.render = function (stores) {
     this.clear();
     var header = document.createElement('div');
-    header.innerHTML = '<h1 class="container">The 5 closest Bars</h1>';
+    header.innerHTML = '<h1 class="container">The 5 closest Good Restaurants</h1>';
     this._container.appendChild(header);
     for (var i = 0; i < stores.length; i++) {
         var child = this.renderStore(stores[i]);

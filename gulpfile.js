@@ -134,7 +134,7 @@ gulp.task('browserify', function () {
         // Rename the destination file
         .pipe(rename('production.js'))
          // Minify JS
-        //.pipe(uglify())
+        .pipe(uglify())
         // Output to the build directory
         .pipe(gulp.dest('dist/js'));
 });
