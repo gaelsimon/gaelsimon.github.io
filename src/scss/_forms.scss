@@ -4,7 +4,7 @@
 input, optgroup, select, textarea { line-height: inherit; }
 
 // Reset vertical align for relevant elements.
-input, select, label, { vertical-align: middle; }
+input, select, label { vertical-align: middle; }
 
 // Set the height file controls to match text inputs
 // Normalize file input width

@@ -150,7 +150,7 @@ gulp.task("images", function () {
 });
 
 // Push build to gh-pages
-gulp.task('deploy', function () {
+gulp.task('deploy', ['html', 'css', 'unused-css', 'js', 'images'], function () {
     return gulp.src("./dist/**/*")
         .pipe(deploy())
 });

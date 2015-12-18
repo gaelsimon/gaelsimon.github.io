@@ -15,9 +15,10 @@ $white:                   #fff !default;
 $blue:                    #428bca !default;
 $green:                   #6fbb57 !default;
 $orange:                  #f0ad4e !default;
+$woosmap:                 #ED1846 !default;
 
 // Color scheme
-$primary-color:           $blue !default;
+$primary-color:           $woosmap !default;
 $secondary-color:         $green !default;
 $tertiary-color:          $orange !default;
 
@@ -87,8 +88,9 @@ $breakpoint--md:          50em !default;
 $breakpoint--lg:          60em !default;
 
 // Max container width
-$max-container-width:     45em !default;
-
+$max-container-width:     65em !default;
+// Max container height
+$max-container-height:    35em !default;
 
 // Spaces
 // -------------------------------------------------------------------

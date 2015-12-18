@@ -1,0 +1,60 @@
+#google-container {
+  position: relative;
+  width: 100%;
+  height: $max-container-height;
+  background-color: $primary-color;
+  border-radius: 3px;
+}
+
+.google-control{
+  cursor: pointer;
+  background-color: rgba($primary-color, .9);
+  .no-touch &:hover {
+    background-color: rgba($primary-color, 1);
+  }
+}
+
+#zoom-in, #zoom-out {
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+  background-size: 32px 64px;
+  background-image: url('../img/controller.svg');
+}
+
+#zoom-in {
+  background-position: 50% 0;
+  margin-top: 10px;
+  margin-bottom: 1px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+#zoom-out {
+  background-position: 50% -32px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+#map-control, #satellite-control {
+  width: 64px;
+  display:inline-block;
+  margin-top: 10px;
+  color: #FFF;
+  text-align: center;
+  font-weight:bold;
+}
+
+#satellite-control {
+  margin-left:1px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+#map-control {
+  margin-left:10px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
