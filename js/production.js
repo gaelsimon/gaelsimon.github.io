@@ -1043,8 +1043,7 @@ Geocoder.prototype.geocodePOI = function (data, map, marker_url, callback) {
         setTimeout(
             (function (poi, index) {
                 return function () {
-                    var address = poi[index].address + ", " + poi[index].city;
-                    self.geocode(address, googleGeocoder, map, marker_url);
+                    self.geocode(poi[index], googleGeocoder, map, marker_url);
                     if (index === poi.length - 1) {
                         setTimeout(callback(stores), 1000);
                     }
@@ -1054,13 +1053,15 @@ Geocoder.prototype.geocodePOI = function (data, map, marker_url, callback) {
     }
 };
 
-Geocoder.prototype.geocode = function (address, geocoder, map, marker_url) {
+Geocoder.prototype.geocode = function (poi, geocoder, map, marker_url) {
     var self = this;
+    var address = poi.address + ", " + poi.city;
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             var feature = {
                 type: 'Feature',
                 properties: results,
+                data_properties: poi,
                 formatted_address: results[0].formatted_address,
                 position: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
             };
@@ -1068,9 +1069,11 @@ Geocoder.prototype.geocode = function (address, geocoder, map, marker_url) {
             self.displayMarker(feature, map, marker_url);
         }
         else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+            console.log("over_query_limit");
             return {};
         }
         else {
+            console.log("error_geoccoding_data");
             return {};
         }
     });
@@ -1109,14 +1112,17 @@ ListPanel.prototype.clear = function () {
 ListPanel.prototype.renderStore = function (store) {
     var cell = document.createElement('div');
     var streetView = 'https://maps.googleapis.com/maps/api/streetview?size=250x100&location={latlng}'.replace('{latlng}', store.position);
-    cell.innerHTML = '<b>' + store.properties.name + '</b>' + '<br/>' +
-        '<img src="' + streetView + '"/>';
+    cell.innerHTML = '<div class="container"><b>' + store.data_properties.name + '</b>' + '<br/>' +
+        '<span>' + store.properties.distancetext + ' : ' + store.properties.duration + '</span>' +
+        '<img src="' + streetView + '"/></div>';
     return cell;
 };
 
 ListPanel.prototype.render = function (stores) {
     this.clear();
-    this._container.appendChild('<h1>The 5 closest Bars</h1>');
+    var header = document.createElement('div');
+    header.innerHTML = '<h1 class="container">The 5 closest Bars</h1>';
+    this._container.appendChild(header);
     for (var i = 0; i < stores.length; i++) {
         this._container.appendChild(this.renderStore(stores[i]));
     }
@@ -1198,7 +1204,7 @@ window.initMap = function () {
 
     function getBounds(features) {
         var bounds = new google.maps.LatLngBounds();
-        for (var i=0; i< features.length; i++) {
+        for (var i = 0; i < features.length; i++) {
             bounds.extend(features[i].position);
         }
         pointsOfInterest.pop();
@@ -1220,7 +1226,7 @@ window.initMap = function () {
                 marker.setVisible(true);
                 zoomToDataAndUserLocation(marker);
             }, function () {
-               alert("Error in Geo-Location");
+                alert("Error in Geo-Location");
             });
         } else {
             alert("no supported Geo-Location");
@@ -1240,14 +1246,51 @@ window.initMap = function () {
 
         map.setCenter(centerAndZoom.center);
         map.setZoom(centerAndZoom.zoom);
-
-        computeListPanel();
+        computeDistancesFrom(markerUser.position);
     }
 
-    function computeListPanel(){
+    function computeListPanel() {
         var listPanel = new ListPanel(mapContainer);
-        listPanel.render(pointsOfInterest);
+        pointsOfInterest.sort(function (a, b) {
+            if (a.distance > b.distance)
+                return 1;
+            if (a.distance < b.distance)
+                return -1;
+            return 0;
+        });
+        var closest5 = pointsOfInterest.slice(0, 5);
+        listPanel.render(closest5);
         listPanel.setVisible(true);
+    }
+
+    function computeDistancesFrom(location) {
+        var destinations = [];
+        for (var i = 0; i < pointsOfInterest.length; i++) {
+            destinations.push(pointsOfInterest[i].position);
+        }
+        var matrixRequest = {
+            origins: [{location: location}],
+            destinations: destinations,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
+        var distanceMatrix = new google.maps.DistanceMatrixService();
+        distanceMatrix.getDistanceMatrix(matrixRequest, function (response, status) {
+            if (status == google.maps.DistanceMatrixStatus.OK) {
+                for (var i = 0; i < response.rows[0].elements.length; i++) {
+                    pointsOfInterest[i].properties.distance = response.rows[0].elements[i].distance.value;
+                    pointsOfInterest[i].properties.distancetext = response.rows[0].elements[i].distance.text;
+                    pointsOfInterest[i].properties.duration = response.rows[0].elements[i].duration.text;
+                    if (i == response.rows[0].elements.length - 1) {
+                        computeListPanel();
+                    }
+                }
+            }
+            else {
+                console.log("error distance matrix");
+            }
+        });
+
     }
 
 };
