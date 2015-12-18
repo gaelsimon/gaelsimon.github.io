@@ -1114,6 +1114,7 @@ ListPanel.prototype.renderStore = function (store) {
     var streetView = 'https://maps.googleapis.com/maps/api/streetview?size=250x100&location={latlng}'.replace('{latlng}', store.position);
     cell.innerHTML = '<div class="container"><b>' + store.data_properties.name + '</b>' + '<br/>' +
         '<span>' + store.properties.distancetext + ' : ' + store.properties.duration + '</span>' +
+        '<span class="btn">Itineréaire</span>' +
         '<img src="' + streetView + '"/></div>';
     return cell;
 };
