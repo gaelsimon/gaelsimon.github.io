@@ -30,7 +30,8 @@ var gulp = require("gulp"),
     watch = require("gulp-watch"),
     deploy = require('gulp-gh-pages'),
     browserSync = require("browser-sync"),
-    reload = browserSync.reload;
+    browserify = require('gulp-browserify');
+reload = browserSync.reload;
 
 // Tasks
 // -------------------------------------------------------------------
@@ -126,17 +127,18 @@ gulp.task("unused-css", function () {
 });
 
 // JS task
-gulp.task("js", function () {
-    return gulp.src("src/js/**/*")
-        // Prevent gulp.watch from crashing
-        .pipe(plumber(onError))
-        // Concatenate all JS files into one
-        .pipe(concat("production.js"))
-        // Minify JS
-        .pipe(uglify())
-        // Where to store the finalized JS
-        .pipe(gulp.dest("dist/js"));
+gulp.task('browserify', function () {
+    return gulp.src(['src/js/main.js'], {read: false})
+        // Browserify, and add source maps if this isn't a production build
+        .pipe(browserify())
+        // Rename the destination file
+        .pipe(rename('production.js'))
+         // Minify JS
+        //.pipe(uglify())
+        // Output to the build directory
+        .pipe(gulp.dest('dist/js'));
 });
+
 
 // Image task
 gulp.task("images", function () {
@@ -150,7 +152,7 @@ gulp.task("images", function () {
 });
 
 // Push build to gh-pages
-gulp.task('deploy', ['html', 'css', 'unused-css', 'js', 'images'], function () {
+gulp.task('deploy', ['html', 'css', 'unused-css', 'browserify', 'images'], function () {
     return gulp.src("./dist/**/*")
         .pipe(deploy())
 });
@@ -168,7 +170,7 @@ gulp.task("default", ["browser-sync"], function () {
     });
     // Watch JS files
     watch("src/js/**/*", function () {
-        gulp.start("js", reload);
+        gulp.start("browserify", reload);
     });
     // Watch image files
     watch("src/img/**/*.+(png|jpeg|jpg|gif|svg)", function () {

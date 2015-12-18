@@ -4,6 +4,7 @@
   "author": "Gaël SIMON",
   "description": "This is a Gulp boilerplate for gh-pages personnal website",
   "private": true,
+  "main" : "src/main.js",
   "devDependencies": {
     "gulp": "*",
     "gulp-file-include": "*",
@@ -23,6 +24,8 @@
     "gulp-size": "*",
     "gulp-watch": "*",
     "gulp-gh-pages": "*",
-    "browser-sync": "*"
+    "gulp-browserify": "*",
+    "browser-sync": "*",
+    "node.extend": "*"
   }
 }
