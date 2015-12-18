@@ -1043,7 +1043,7 @@ Geocoder.prototype.geocodePOI = function (data, map, marker_url, callback) {
         setTimeout(
             (function (poi, index) {
                 return function () {
-                    self.geocode(poi[index], googleGeocoder, map, marker_url);
+                    self.geocode(poi[index], index, googleGeocoder, map, marker_url);
                     if (index === poi.length - 1) {
                         setTimeout(callback(stores), 1000);
                     }
@@ -1053,7 +1053,7 @@ Geocoder.prototype.geocodePOI = function (data, map, marker_url, callback) {
     }
 };
 
-Geocoder.prototype.geocode = function (poi, geocoder, map, marker_url) {
+Geocoder.prototype.geocode = function (poi, index, geocoder, map, marker_url) {
     var self = this;
     var address = poi.address + ", " + poi.city;
     geocoder.geocode({'address': address}, function (results, status) {
@@ -1062,6 +1062,7 @@ Geocoder.prototype.geocode = function (poi, geocoder, map, marker_url) {
                 type: 'Feature',
                 properties: results,
                 data_properties: poi,
+                id:index,
                 formatted_address: results[0].formatted_address,
                 position: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
             };
@@ -1073,7 +1074,7 @@ Geocoder.prototype.geocode = function (poi, geocoder, map, marker_url) {
             return {};
         }
         else {
-            console.log("error_geoccoding_data");
+            console.log("error_geocoding_data");
             return {};
         }
     });
@@ -1112,10 +1113,11 @@ ListPanel.prototype.clear = function () {
 ListPanel.prototype.renderStore = function (store) {
     var cell = document.createElement('div');
     var streetView = 'https://maps.googleapis.com/maps/api/streetview?size=250x100&location={latlng}'.replace('{latlng}', store.position);
-    cell.innerHTML = '<div class="container"><b>' + store.data_properties.name + '</b>' + '<br/>' +
-        '<span>' + store.properties.distancetext + ' : ' + store.properties.duration + '</span>' +
-        '<span class="btn">Itineréaire</span>' +
+    cell.innerHTML = '<div class="container pt1"><b>' + store.data_properties.name + '   </b>' +
+        '<button id="btn-' + store.id + '" data-id=' + store.id + ' class="btn btn--outline btn--sm">Vroum</button>' + '<br/>' +
+        '<span>' + store.properties.distancetext + ' : ' + store.properties.duration + '</span>' + '<br/>' +
         '<img src="' + streetView + '"/></div>';
+
     return cell;
 };
 
@@ -1125,7 +1127,8 @@ ListPanel.prototype.render = function (stores) {
     header.innerHTML = '<h1 class="container">The 5 closest Bars</h1>';
     this._container.appendChild(header);
     for (var i = 0; i < stores.length; i++) {
-        this._container.appendChild(this.renderStore(stores[i]));
+        var child = this.renderStore(stores[i]);
+        this._container.appendChild(child);
     }
 };
 
@@ -1142,6 +1145,7 @@ window.initMap = function () {
         longitude = 3.875395,
         map_zoom = 13;
     var pointsOfInterest = [];
+    var userPosition = {};
     var is_internetExplorer11 = navigator.userAgent.toLowerCase().indexOf('trident') > -1;
     var marker_url = ( is_internetExplorer11 ) ? 'img/default_marker.png' : 'img/default_marker.svg';
     var marker_search = ( is_internetExplorer11 ) ? 'img/location.png' : 'img/location.svg';
@@ -1219,6 +1223,7 @@ window.initMap = function () {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+                userPosition = location;
                 var marker = new google.maps.Marker({
                     position: location,
                     map: map,
@@ -1262,6 +1267,12 @@ window.initMap = function () {
         var closest5 = pointsOfInterest.slice(0, 5);
         listPanel.render(closest5);
         listPanel.setVisible(true);
+
+        for (var i = 0; i < closest5.length; i++) {
+            $('#btn-' + i).on("click", function () {
+                calculateItinary(closest5[$(this).data("id")].position);
+            });
+        }
     }
 
     function computeDistancesFrom(location) {
@@ -1291,9 +1302,25 @@ window.initMap = function () {
                 console.log("error distance matrix");
             }
         });
-
     }
 
+    function calculateItinary(destination) {
+        var request = {
+            origin: userPosition,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        var dDisplay = new google.maps.DirectionsRenderer({draggable: true});
+        dDisplay.setPanel(document.getElementById("list-panel"));
+        var directionsService = new google.maps.DirectionsService();
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                $("#list-panel").empty();
+                dDisplay.setMap(map);
+                dDisplay.setDirections(result);
+            }
+        });
+    }
 };
 
 
