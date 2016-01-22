@@ -20,9 +20,9 @@
 
         var conf = {
             "internationalization": {
-                lang: "fr", // en || fr
-                period: "fr", // fr=24h, en-US=12h
-                unitSystem: 0 //o=Metric, 1=imperial
+                lang: "en", // en || fr
+                period: "en-US", // fr=24h, en-US=12h
+                unitSystem: 1 //o=Metric, 1=imperial
             },
             "datasource": {
                 api_key: "lol-woos", // clé projet
@@ -35,15 +35,15 @@
                 places: {types: ['geocode']}
             },
             "theme": {
-                primary_color: "#0D613F" // la couleur que tu souhaite ici en format css
+                primary_color: "#2c3e50" // la couleur que tu souhaite ici en format css
             },
             "woosmapview": {
-                tileStyle: {color: "rgba(13,97,63,0.8)", size: 10, minSize: 6},
-                breakPoint: 11,
+                tileStyle: {color: "rgba(6,6,8,0.8)", size: 10, minSize: 6},
+                breakPoint: 8,
                 style: {
                     rules: [
                         {
-                            type: 'auchan', // si tu veux typer tes pictos
+                            type: 'Store', // si tu veux typer tes pictos
                             'icon': {
                                 url: 'http://www.pd4pic.com/images/map-marker-pin-pushpin-shiny-green.png',
                                 scaledSize: {height: 40, width: 30}
