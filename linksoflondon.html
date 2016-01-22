@@ -11,13 +11,18 @@
 <script src="http://stage-webapp.woosmap.com/webapp.js"></script>
 <script>
     var loadWebApp = function () {
-        var webapp = new WebApp("linksoflondon");
+
+        var webapp = new WebApp("example");
+
+        webapp.listenOn(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
+            console.log("one " + storeId);
+        });
 
         var conf = {
             "internationalization": {
-                lang: "en", // en || fr
-                period: "en-US", // fr=24h, en-US=12h
-                unitSystem: 1 //o=Metric, 1=imperial
+                lang: "fr", // en || fr
+                period: "fr", // fr=24h, en-US=12h
+                unitSystem: 0 //o=Metric, 1=imperial
             },
             "datasource": {
                 api_key: "lol-woos", // clé projet
@@ -25,30 +30,47 @@
                 max_distance: 0 //en mètre. Si zéro alors pas de limite
             },
             "googlemaps": {
-                channel: ''
-                /*places: {
-                    types: ['(cities)'],
-                    componentRestrictions: {country: 'fr'}
-                }*/
+                client_key: '',
+                channel: '',
+                places: {types: ['geocode']}
             },
             "theme": {
-                primary_color: "#008691" // la couleur que tu souhaite ici en format css
+                primary_color: "#0D613F" // la couleur que tu souhaite ici en format css
             },
             "woosmapview": {
-                tileStyle: {color: "#008691"},
-                breakPoint: 4
+                tileStyle: {color: "rgba(13,97,63,0.8)", size: 10, minSize: 6},
+                breakPoint: 11,
+                style: {
+                    rules: [
+                        {
+                            type: 'auchan', // si tu veux typer tes pictos
+                            'icon': {
+                                url: 'http://www.pd4pic.com/images/map-marker-pin-pushpin-shiny-green.png',
+                                scaledSize: {height: 40, width: 30}
+                            },
+                            selectedIcon: {
+                                url: 'https://pixabay.com/static/uploads/photo/2013/07/13/01/09/map-155198_640.png',
+                                scaledSize: {height: 40, width: 30}
+                            }
+                        }
+                    ]
+                    ,
+                    default: {
+                        icon: {
+                            url: 'https://michaeltartar.files.wordpress.com/2013/10/starbucks_logo.png?w=30',
+                            scaledSize: {height: 30, width: 30}
+                        },
+                        selectedIcon: {
+                            url: 'https://cdn4.iconfinder.com/data/icons/Starbucks_coffee/PNG/512x512/starbucks_coffee_1.png',
+                            scaledSize: {height: 50, width: 50}
+                        }
+                    }
+
+                }
             }
         };
+
         webapp.setInitConf(conf);
-        //webapp.setInitialStateToRandomLocation(23, 56);
-        //webapp.setInitialStateToNearbyStores();
-        //webapp.setInitialStateToHtmlLocation();
-        webapp.listenOn(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
-            console.log("one " + storeId);
-        });
-        webapp.listenOnce(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
-            console.log("once " + storeId);
-        });
         webapp.render();
     };
 
