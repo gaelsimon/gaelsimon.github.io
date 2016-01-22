@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="http://stage-webapp.woosmap.com/main.css">
+    <style>#example{width:100%;height:100%}</style></head><body>
+<div id="example"></div>
+</body>
+<script src="http://stage-webapp.woosmap.com/webapp.js"></script>
+<script>
+    var loadWebApp = function () {
+        var webapp = new WebApp("linksoflondon");
+
+        var conf = {
+            "internationalization": {
+                lang: "en", // en || fr
+                period: "en-US", // fr=24h, en-US=12h
+                unitSystem: 1 //o=Metric, 1=imperial
+            },
+            "datasource": {
+                api_key: "lol-woos", // clé projet
+                max_responses: 10,
+                max_distance: 0 //en mètre. Si zéro alors pas de limite
+            },
+            "googlemaps": {
+                channel: ''
+                /*places: {
+                    types: ['(cities)'],
+                    componentRestrictions: {country: 'fr'}
+                }*/
+            },
+            "theme": {
+                primary_color: "#008691" // la couleur que tu souhaite ici en format css
+            },
+            "woosmapview": {
+                tileStyle: {color: "#008691"},
+                breakPoint: 4
+            }
+        };
+        webapp.setInitConf(conf);
+        //webapp.setInitialStateToRandomLocation(23, 56);
+        //webapp.setInitialStateToNearbyStores();
+        //webapp.setInitialStateToHtmlLocation();
+        webapp.listenOn(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
+            console.log("one " + storeId);
+        });
+        webapp.listenOnce(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
+            console.log("once " + storeId);
+        });
+        webapp.render();
+    };
+
+</script>
+<script src="https://www.google.com/jsapi?callback=loadWebApp"></script>
+</html>
