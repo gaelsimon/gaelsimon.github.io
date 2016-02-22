@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="http://stage-webapp.woosmap.com/main.css">
+    <style>
+        #example {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script src="http://stage-webapp.woosmap.com/webapp.js"></script>
+<script>
+    var loadWebApp = function () {
+
+        var webapp = new WebApp("example");
+
+        webapp.listenOn(webapp.HANDLED_EVENT.FAVORITED, function (storeId) {
+            console.log("one " + storeId);
+        });
+
+        var conf = {
+            "internationalization": {
+                lang: "en", // en || fr
+                period: "en-US", // fr=24h, en-US=12h
+                unitSystem: 1 //o=Metric, 1=imperial
+            },
+            "datasource": {
+                api_key: "lol-woos", // clé projet
+                max_responses: 10,
+                max_distance: 0 //en mètre. Si zéro alors pas de limite
+            },
+            "googlemaps": {
+                client_key: '',
+                channel: '',
+                places: {types: ['geocode']}
+            },
+            "theme": {
+                    primary_color: "#343637" // la couleur que tu souhaite ici en format css
+            },
+            "woosmapview": {
+                tileStyle: {color: "#343637", size: 13, minSize: 5},
+                breakPoint: 8,
+                style: {
+                    rules: [
+                        {
+                            type: 'Store', // si tu veux typer tes pictos
+                            'icon': {
+                                url: 'img/default_marker.png',
+                                scaledSize: {height: 32, width: 32}
+                            },
+                            selectedIcon: {
+                                url: 'img/selected_marker.png',
+                                scaledSize: {height: 40, width: 40}
+                            }
+                        }
+                    ]
+                    ,
+                    default: {
+                        'icon': {
+                            url: 'img/default_marker.png',
+                            scaledSize: {height: 32, width: 32}
+                        },
+                        selectedIcon: {
+                            url: 'img/selected_marker.png',
+                            scaledSize: {height: 40, width: 40}
+                        }
+                    }
+
+                }
+            }
+        };
+        webapp.setInitConf(conf);
+        webapp.render();
+    };
+
+</script>
+<script src="https://www.google.com/jsapi?callback=loadWebApp"></script>
+</html>
